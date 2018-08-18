@@ -17,7 +17,8 @@ export default {
   data () {
     return {
       GET_URL :'http://app.taocaimall.com/taocaimall/superiorGoodsTemplate.json',
-      POST_URL:'http://ts.taocaimall.com/cg/pub/about/CgVersion'
+      POST_URL:'http://ts.taocaimall.com/cg/pub/about/CgVersion',
+      POST_Model_URL:'http://app.taocaimall.com/taocaimall/version.json'
     }
   },
   created: function() {
@@ -73,21 +74,21 @@ export default {
       var jsonType = ''
       if (WXEnvironment.platform === 'Web'){
         HTTPHeader = {'Content-Type':'application/json'}
-        jsonType = 'json'
+        jsonType = 'jsonp'
       }else{
         HTTPHeader = {'Content-Type':'application/json;charset=utf-8'}
         jsonType = 'jsonp'
       }
       stream.fetch({
         method: 'POST',
-        url: this.POST_URL,
+        url: this.POST_Model_URL+'?'+'requestmodel='+encodeURI(JSON.stringify({os_flag:'ios'})),
         type:jsonType,
-        headers:HTTPHeader,
-        body:JSON.stringify({app_version:'1.0.0',os_flag:'CG_ios'})
+        headers:HTTPHeader
+        // body:JSON.stringify({app_version:'1.0.0',os_flag:'CG_ios'})
       },function(ret){
         if(!ret.ok){
           modal.toast({
-            message: 'request failed',
+            message: 'requset fail',
             duration: 0.3
           })
         }else{

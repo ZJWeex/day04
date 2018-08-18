@@ -1,27 +1,44 @@
-# Introduction
+# POST请求中的问题
+## 返回的数据类型
+```
+var HTTPHeader = {'Content-Type':'application/json;charset=utf-8'}
+var jsonType = 'jsonp'
+if (WXEnvironment.platform.toLowerCase() === 'web'){
+  HTTPHeader = {'Content-Type':'application/json'}
+  jsonType = 'jsonp'
+}else if(WXEnvironment.platform.toLowerCase() === 'ios'){
+  HTTPHeader = {'Content-Type':'application/json;charset=utf-8'}
+  jsonType = 'jsonp'
+}else if(WXEnvironment.platform.toLowerCase() === 'android'){
+  HTTPHeader = {'Content-Type':'application/json'}
+  jsonType = 'text'
+}
 
-This boilerplate is targeted towards large, serious projects and assumes you are somewhat familiar with Webpack and `weex-loader`. 
-
-## Quickstart
-
-To use this template, scaffold a project with [weexpack v1.1.1+](https://github.com/weexteam/weex-pack).
-
-``` bash
-$ npm install -g weex-toolkit
-$ weex create my-project # default will create the webpack template
-$ cd my-project && npm start
 ```
 
-## How to use less/sass/pug
-
-Take `sass` for example:
-
+## POST请求头问题
 ```
-$ npm i node-sass sass-loader --save
+//官方的
+stream.fetch({
+    method: 'POST',
+    // timeout: 30000,//30s
+    url: resultURL,
+    type:jsonType,
+    headers:HTTPHeader,
+    body:JSON.stringify(params)
+  },function(ret){
+}
+```
+由于服务端的问题请求不到数据，可尝试拼接到URL上即GET参数处理的方式
+```
+stream.fetch({
+  method: 'POST',
+  // timeout: 30000,//30s
+  url: resultURL +'?' + toParams(params),
+  type:jsonType,
+  headers:HTTPHeader
+
+},function(ret){
+}
 ```
 
-Then, you just need to change the `style` tag as: `<style lang="sass"><style>`.
-
-## How to create your own template
-
-See [How-to-create-your-own-template](https://github.com/weex-templates/How-to-create-your-own-template).

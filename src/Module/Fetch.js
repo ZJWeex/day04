@@ -128,7 +128,7 @@ var HTTPHeader = {'Content-Type':'application/json;charset=utf-8'}
 var jsonType = 'jsonp'
 if (WXEnvironment.platform.toLowerCase() === 'web'){
   HTTPHeader = {'Content-Type':'application/json'}
-  jsonType = 'json'
+  jsonType = 'jsonp'
 }else if(WXEnvironment.platform.toLowerCase() === 'ios'){
   HTTPHeader = {'Content-Type':'application/json;charset=utf-8'}
   jsonType = 'jsonp'
