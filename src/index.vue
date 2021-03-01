@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <image :src="logo" class="logo" />
+    <image :src="logo" class="logo" resize="contain"/>
     <text class="greeting">The environment is ready!</text>
     <div>
     <wxc-button text="Open Popup"
@@ -27,7 +27,8 @@ export default {
   },
   data () {
     return {
-      logo: 'https://gw.alicdn.com/tfs/TB1yopEdgoQMeJjy1XaXXcSsFXa-640-302.png',
+      // logo: 'https://gw.alicdn.com/tfs/TB1yopEdgoQMeJjy1XaXXcSsFXa-640-302.png',
+      logo: '../web/assets/wechat.png',
       isShow: false
     }
   },
